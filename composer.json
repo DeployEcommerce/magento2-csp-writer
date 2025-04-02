@@ -1,0 +1,28 @@
+{
+  "name": "deployecommerce/magento2-csp-writer",
+  "description": "A PHP library to write a Magento 2/Adobe Commerce whitelist.xml file from a structured array.",
+  "type": "library",
+  "keywords": [
+    "csp",
+    "content-security-policy",
+    "parser",
+    "security",
+    "headers",
+    "http",
+    "pci",
+    "magento",
+    "magento2",
+    "adobe",
+    "commerce"
+  ],
+  "version": "0.0.1",
+  "license": "OSL-3.0",
+  "autoload": {
+    "psr-4": {
+      "DeployEcommerce\\Csp\\Writer\\": "src/"
+    }
+  },
+  "require": {
+    "ext-simplexml": "*"
+  }
+}
