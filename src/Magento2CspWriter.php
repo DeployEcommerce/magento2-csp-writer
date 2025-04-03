@@ -13,10 +13,9 @@ class Magento2CspWriter
     /**
      * The initial XML we'll use to create an XML document.
      */
-    const XML_HEADER = '<?xml version="1.0" encoding="utf-8" ?>';
-
-    const XML_ROOT = '<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd" />';
+    const XML_HEADER = '<?xml version="1.0" encoding="utf-8" ?>
+                        <csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd" />';
 
     /**
      * The element we'll use to contain the CSP policies.
@@ -46,7 +45,7 @@ class Magento2CspWriter
      */
     public function generate(array $policies): string
     {
-        $xml = new SimpleXMLElement(self::XML_ROOT);
+        $xml = new SimpleXMLElement(self::XML_HEADER);
         $xml_policies = $xml->addChild(self::ELEMENT_POLICIES);
 
         foreach ($policies as $directive => $policy) {
@@ -66,7 +65,10 @@ class Magento2CspWriter
         // Strip out newlines from the XML document we've generated.
         $xml = preg_replace('~[\r\n]+~', '', $xml->asXML());
 
-        // Add the XML header to the document to the XML document we've created.
-        return self::XML_HEADER."\n".$xml;
+        // Return the header in a format that doesn't make browsers angry.
+        return str_replace(
+                            '<?xml version="1.0" encoding="utf-8" ?>',
+                            "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n",
+                            $xml);
     }
 }
