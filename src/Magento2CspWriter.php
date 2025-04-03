@@ -16,6 +16,11 @@ class Magento2CspWriter
     const XML_HEADER = '<?xml version="1.0" encoding="utf-8" ?><csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd" />';
 
+    /*
+     * The closing XML tag for the document.
+     */
+    const XML_FOOTER = '</xml>';
+
     /**
      * The element we'll use to contain the CSP policies.
      */
@@ -61,6 +66,6 @@ class Magento2CspWriter
             }
         }
 
-        return $xml->asXML();
+        return $xml->asXML().self::XML_FOOTER;
     }
 }
