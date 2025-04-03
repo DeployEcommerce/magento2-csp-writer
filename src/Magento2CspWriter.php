@@ -66,6 +66,10 @@ class Magento2CspWriter
             }
         }
 
-        return $xml->asXML().self::XML_FOOTER;
+        // Add the XML footer to the document to the XML document we've created.
+        $xml = $xml->asXML().self::XML_FOOTER;
+
+        // Remove newlines from any generated output.
+        return preg_replace('~[\r\n]+~', '', $xml);
     }
 }
