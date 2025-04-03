@@ -55,10 +55,12 @@ class Magento2CspWriter
             $values = $xml_policy->addChild(self::ELEMENT_VALUES);
 
             foreach ($policy as $policy_values) {
-                $value = $values->addChild(self::ELEMENT_VALUE);
-                $value->addAttribute('id', ($policy_values['name'] ?? 'csp_'.rand(1000, 9999)));
-                $value->addAttribute('type', $policy_values['type']);
-                $value[0] = $policy_values['value'];
+                if ($policy_values['value']) {
+                    $value = $values->addChild(self::ELEMENT_VALUE);
+                    $value->addAttribute('id', ($policy_values['name'] ?? 'csp_' . rand(1000, 9999)));
+                    $value->addAttribute('type', $policy_values['type']);
+                    $value[0] = $policy_values['value'];
+                }
             }
         }
 

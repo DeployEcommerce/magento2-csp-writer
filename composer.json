@@ -15,7 +15,7 @@
     "adobe",
     "commerce"
   ],
-  "version": "0.0.7",
+  "version": "0.0.8",
   "license": "OSL-3.0",
   "autoload": {
     "psr-4": {
